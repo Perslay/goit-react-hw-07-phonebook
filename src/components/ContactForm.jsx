@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { getContacts } from '../redux/selectors';
 import { useDispatch } from 'react-redux';
-import { addContact } from '../redux/contactsSlice';
+import { addContact } from '../redux/operations';
 import { nanoid } from '@reduxjs/toolkit';
 import css from '../styles/ContactForm.module.css';
 
@@ -17,13 +17,13 @@ export const ContactForm = () => {
 
     const form = evt.currentTarget;
     const name = form[0].value;
-    const number = form[1].value;
-    const nameExists = contacts.some(contact => contact.name === name);
+    const phone = form[1].value;
+    const nameExists = contacts.items.some(contact => contact.name === name);
 
     if (nameExists) {
       alert(name + ' is already in contacts.');
     } else {
-      dispatch(addContact(name, number));
+      dispatch(addContact({ name, phone }));
     }
 
     form.reset();
@@ -36,7 +36,6 @@ export const ContactForm = () => {
           Name
         </label>
         <input
-          // onChange={handleName}
           className={css.input}
           type="text"
           name="name"
@@ -51,7 +50,6 @@ export const ContactForm = () => {
           Number
         </label>
         <input
-          // onChange={handleNumber}
           className={css.input}
           type="tel"
           name="number"
