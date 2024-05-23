@@ -3,7 +3,7 @@ import { getContacts, getFilter } from '../redux/selectors';
 import { Contact } from './Contact';
 import css from '../styles/ContactList.module.css';
 
-export const ContactList = () => {
+export const ContactList = ({ error }) => {
   const contacts = useSelector(getContacts);
   const filter = useSelector(getFilter);
 
@@ -16,12 +16,17 @@ export const ContactList = () => {
   const visibleContacts = getVisibleContacts(contacts, filter);
 
   return (
-    <ul className={css.list}>
-      {visibleContacts.map(contact => (
-        <li className={css.listItem} key={contact.id}>
-          <Contact contact={contact} />
-        </li>
-      ))}
-    </ul>
+    <div>
+      {error && (
+        <p className={css.error}>Failed to fetch data from the server</p>
+      )}
+      <ul className={css.list}>
+        {visibleContacts.map(contact => (
+          <li className={css.listItem} key={contact.id}>
+            <Contact contact={contact} />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
