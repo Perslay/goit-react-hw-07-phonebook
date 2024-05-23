@@ -12,6 +12,7 @@
   font-family: inherit;
   font-size: inherit;
   padding: 0.5rem;
+  transition: box-shadow 200ms ease, border-color 200ms ease;
 }
 
 .input:focus,
