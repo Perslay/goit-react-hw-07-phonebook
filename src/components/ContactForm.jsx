@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { getContacts } from '../redux/selectors';
+import { selectContacts } from '../redux/selectors';
 import { useDispatch } from 'react-redux';
 import { addContact } from '../redux/operations';
 import { nanoid } from '@reduxjs/toolkit';
@@ -10,7 +10,7 @@ export const ContactForm = () => {
   const numberInputId = nanoid();
 
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
 
   const handleSubmit = evt => {
     evt.preventDefault();
@@ -18,7 +18,7 @@ export const ContactForm = () => {
     const form = evt.currentTarget;
     const name = form[0].value;
     const phone = form[1].value;
-    const nameExists = contacts.items.some(contact => contact.name === name);
+    const nameExists = contacts.some(contact => contact.name === name);
 
     if (nameExists) {
       alert(name + ' is already in contacts.');
